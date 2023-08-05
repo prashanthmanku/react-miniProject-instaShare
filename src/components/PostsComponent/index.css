@@ -1,0 +1,29 @@
+.posts-list-card {
+  list-style-type: none;
+  padding: 0px;
+  border: 1px solid green;
+  /* width: 100%; */
+  /* max-width: 700px; */
+}
+.post-item-card {
+  border: 1px solid red;
+  width: 100%;
+}
+.post-item-userName-card {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+}
+.post-item-profile-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  margin-right: 20px;
+}
+.post-item-userName {
+}
+.post-item-post-img {
+  /* width: 100%; */
+  margin: auto;
+}

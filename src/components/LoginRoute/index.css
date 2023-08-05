@@ -69,7 +69,7 @@ label {
   letter-spacing: 0.12px;
   text-transform: uppercase;
 }
-input {
+.login-input {
   height: 40px;
   border-radius: 5px;
 

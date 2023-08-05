@@ -21,7 +21,7 @@ const LoginRoute = props => {
   const onSubmitSuccess = jwtToken => {
     const {history} = props
     Cookies.set('jwt_token', jwtToken, {expires: 5})
-    history.push('/')
+    history.replace('/')
   }
 
   const onSubmitFailure = Msg => {
@@ -72,6 +72,7 @@ const LoginRoute = props => {
             <input
               type="text"
               id="username"
+              className="login-input"
               placeholder="username"
               value={username}
               onChange={onChangeUsername}
@@ -82,6 +83,7 @@ const LoginRoute = props => {
             <input
               type="password"
               id="password"
+              className="login-input"
               placeholder="password"
               value={password}
               onChange={onChangePassword}
