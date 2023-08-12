@@ -1,8 +1,7 @@
 import {useState, useEffect} from 'react'
 import Cookies from 'js-cookie'
 
-import {BsHeart} from 'react-icons/bs'
-import {FcLike} from 'react-icons/fc'
+import PostItem from '../PostItem'
 
 import './index.css'
 
@@ -94,6 +93,12 @@ const PostsComponent = () => {
     </ul>
   )
 
-  return renderPosts()
+  return (
+    <ul className="posts-list-card">
+      {postsApi.postsData.map(each => (
+        <PostItem key={each.postId} postDetails={each} />
+      ))}
+    </ul>
+  )
 }
 export default PostsComponent
