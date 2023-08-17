@@ -1,7 +1,10 @@
 import {useState, useEffect} from 'react'
 import Slider from 'react-slick'
+import Loader from 'react-loader-spinner'
 
 import Cookies from 'js-cookie'
+
+import HomeFailureView from '../HomeFailureView'
 
 import './index.css'
 
@@ -54,46 +57,10 @@ const StoriesComponent = () => {
     getStoriesData()
   }, [])
 
-  //   const settings = {
-  //     // infinite: false,
-  //     initialSlide: 0,
-  //     speed: 500,
-  //     slidesToShow: 5,
-  //     slidesToScroll: 1,
-  //     arrows: true,
-  //     swipe: true,
-  //     swipeToSlide: true,
-  //     responsive: [
-  //       {
-  //         breakpoint: 1024,
-  //         settings: {
-  //           slidesToShow: 4,
-  //           slidesToScroll: 1,
-  //         },
-  //       },
-  //       {
-  //         breakpoint: 600,
-  //         settings: {
-  //           slidesToShow: 3,
-  //           slidesToScroll: 1,
-  //         },
-  //       },
-  //       {
-  //         breakpoint: 500,
-  //         settings: {
-  //           slidesToShow: 2,
-  //           slidesToScroll: 1,
-  //         },
-  //       },
-  //       {
-  //         breakpoint: 230,
-  //         settings: {
-  //           slidesToShow: 1,
-  //           slidesToScroll: 1,
-  //         },
-  //       },
-  //     ],
-  //   }
+  const retryFunction = () => {
+    getStoriesData()
+  }
+
   const settings = {
     dots: false,
     // infinite: false,
@@ -138,7 +105,7 @@ const StoriesComponent = () => {
       },
     ],
   }
-  const rederStories = () => (
+  const renderStories = () => (
     <div className="stories-slides-container">
       <Slider {...settings}>
         {storiesApi.storiesData.map(each => {
@@ -158,6 +125,31 @@ const StoriesComponent = () => {
     </div>
   )
 
-  return rederStories()
+  const renderLoader = () => (
+    <div className="stories-loader-container" data-testid="loader">
+      <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
+    </div>
+  )
+
+  const renderFailureView = () => (
+    <div className="stories-Failureview-card">
+      <HomeFailureView retryFunction={retryFunction} />
+    </div>
+  )
+
+  const renderStoriesView = () => {
+    switch (storiesApi.storiesApiStatus) {
+      case apiStatusConstants.inProgress:
+        return renderLoader()
+      case apiStatusConstants.success:
+        return renderStories()
+      case apiStatusConstants.failure:
+        return renderFailureView()
+      default:
+        return null
+    }
+  }
+
+  return renderStoriesView()
 }
 export default StoriesComponent

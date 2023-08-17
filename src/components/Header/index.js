@@ -91,7 +91,11 @@ const Header = () => {
             />
             <h1 className="header-logo-text">Insta Share</h1>
           </div>
-          <button className="mobile-hambarger-btn" onClick={onClickMenuIcon}>
+          <button
+            type="button"
+            className="mobile-hambarger-btn"
+            onClick={onClickMenuIcon}
+          >
             <GrMenu className="menu-icon" />
           </button>
           <ul className="desktop-nav-items-card">

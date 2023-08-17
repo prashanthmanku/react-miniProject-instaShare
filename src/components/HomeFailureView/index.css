@@ -1,0 +1,24 @@
+.home-failure-icon {
+  color: #4094ef;
+  height: 24px;
+  width: 24px;
+}
+.home-failure-text {
+  color: #262626;
+  font-family: 'Roboto';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+.home-failure-tryAgain-btn {
+  color: #fff;
+  background-color: #4094ef;
+  font-size: 12px;
+  font-weight: 500;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+}

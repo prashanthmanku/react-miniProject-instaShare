@@ -30,3 +30,23 @@
 .slick-next:before {
   color: black;
 }
+.stories-loader-container {
+  border: 1px solid;
+  width: 90%;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.stories-Failureview-card {
+  border: 1px solid;
+  width: 90%;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px;
+  text-align: center;
+}

@@ -1,7 +1,9 @@
 import {useState, useEffect} from 'react'
 import Cookies from 'js-cookie'
+import Loader from 'react-loader-spinner'
 
 import PostItem from '../PostItem'
+import HomeFailureView from '../HomeFailureView'
 
 import './index.css'
 
@@ -12,6 +14,7 @@ const apiStatusConstants = {
   failure: 'FAILURE',
 }
 
+// Cookies.remove('jwt_token')
 const PostsComponent = () => {
   const [postsApi, setPostsApi] = useState({
     postsApiStatus: apiStatusConstants.initial,
@@ -47,6 +50,8 @@ const PostsComponent = () => {
         profilePic: each.profile_pic,
         userId: each.user_id,
         userName: each.user_name,
+        likesCount: each.likes_count,
+        createdAt: each.created_at,
       }))
       setPostsApi({
         postsApiStatus: apiStatusConstants.success,
@@ -64,41 +69,43 @@ const PostsComponent = () => {
     getPostsData()
   }, [])
 
-  const renderPosts = () => (
-    <ul className="posts-list-card">
-      {postsApi.postsData.map(each => {
-        const {
-          comments,
-          postCaption,
-          postId,
-          postImgUrl,
-          profilePic,
-          userId,
-          userName,
-        } = each
-        return (
-          <li className="post-item-card" key={postId}>
-            <div className="post-item-userName-card">
-              <img
-                src={profilePic}
-                alt="post author profile"
-                className="post-item-profile-img"
-              />
-              <p className="post-item-userName">{userName}</p>
-            </div>
-            <img src={postImgUrl} alt="post" className="post-item-post-img" />
-          </li>
-        )
-      })}
-    </ul>
+  const retryFunction = () => {
+    getPostsData()
+  }
+
+  const LoadingView = () => (
+    <div className="posts-loader-container" data-testid="loader">
+      <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
+    </div>
   )
 
-  return (
+  const renderPosts = () => (
     <ul className="posts-list-card">
       {postsApi.postsData.map(each => (
         <PostItem key={each.postId} postDetails={each} />
       ))}
     </ul>
   )
+
+  const renderFailureView = () => (
+    <div className="posts-Failureview-card">
+      <HomeFailureView retryFunction={retryFunction} />
+    </div>
+  )
+
+  const renderpostsView = () => {
+    switch (postsApi.postsApiStatus) {
+      case apiStatusConstants.inProgress:
+        return LoadingView()
+      case apiStatusConstants.success:
+        return renderPosts()
+      case apiStatusConstants.failure:
+        return renderFailureView()
+      default:
+        return null
+    }
+  }
+
+  return renderpostsView()
 }
 export default PostsComponent

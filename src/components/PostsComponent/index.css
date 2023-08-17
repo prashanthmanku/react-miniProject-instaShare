@@ -1,29 +1,34 @@
 .posts-list-card {
   list-style-type: none;
   padding: 0px;
-  border: 1px solid green;
+  /* border: 1px solid green; */
   /* width: 100%; */
   /* max-width: 700px; */
-}
-.post-item-card {
-  border: 1px solid red;
   width: 100%;
+  max-width: 500px;
 }
-.post-item-userName-card {
+
+.posts-loader-container {
+  border: 1px solid;
+  /* border-bottom: none; */
   width: 90%;
-  margin: auto;
+  margin-top: 20px;
   display: flex;
+  justify-content: center;
   align-items: center;
+  flex: 1;
 }
-.post-item-profile-img {
-  width: 60px;
-  height: 60px;
-  border-radius: 30px;
-  margin-right: 20px;
-}
-.post-item-userName {
-}
-.post-item-post-img {
-  /* width: 100%; */
-  margin: auto;
+
+.posts-Failureview-card {
+  border: 1px solid;
+  width: 90%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  margin-top: 20px;
+  padding: 20px;
+  text-align: center;
 }
