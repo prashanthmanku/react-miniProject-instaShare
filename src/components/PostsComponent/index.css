@@ -9,7 +9,6 @@
 }
 
 .posts-loader-container {
-  border: 1px solid;
   /* border-bottom: none; */
   width: 90%;
   margin-top: 20px;
@@ -19,8 +18,20 @@
   flex: 1;
 }
 
+@media screen and (min-width: 500px) {
+  .posts-loader-container {
+    border-radius: 4px 4px 0px 0px;
+    border: 1px solid #dbdbdb;
+    background: #fff;
+  }
+  .posts-Failureview-card {
+    border-radius: 4px 4px 0px 0px;
+    border: 1px solid #dbdbdb;
+    background: #fff;
+  }
+}
+
 .posts-Failureview-card {
-  border: 1px solid;
   width: 90%;
 
   display: flex;
@@ -29,6 +40,6 @@
   align-items: center;
   flex: 1;
   margin-top: 20px;
-  padding: 20px;
+
   text-align: center;
 }

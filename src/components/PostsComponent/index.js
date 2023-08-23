@@ -1,9 +1,10 @@
-import {useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
 
 import PostItem from '../PostItem'
 import HomeFailureView from '../HomeFailureView'
+import InstaShareContext from '../../context/index'
 
 import './index.css'
 
@@ -16,6 +17,7 @@ const apiStatusConstants = {
 
 // Cookies.remove('jwt_token')
 const PostsComponent = () => {
+  const {searchInput} = React.useContext(InstaShareContext)
   const [postsApi, setPostsApi] = useState({
     postsApiStatus: apiStatusConstants.initial,
     postsData: [],
@@ -28,6 +30,7 @@ const PostsComponent = () => {
       postsApiStatus: apiStatusConstants.inProgress,
     }))
     const url = 'https://apis.ccbp.in/insta-share/posts'
+    console.log(url)
     const options = {
       method: 'GET',
       headers: {

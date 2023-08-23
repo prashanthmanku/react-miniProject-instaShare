@@ -1,26 +1,51 @@
-import {useState} from 'react'
+import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
 import {GrMenu} from 'react-icons/gr'
 import {FaSearch} from 'react-icons/fa'
 import {IoMdCloseCircle} from 'react-icons/io'
+import InstaShareContext from '../../context/index'
 import './index.css'
 
 const Header = () => {
-  const [isMenuPopupOpened, setIsMenuPopupOpened] = useState(false)
-  const [isMobileSearchBarOpened, setIsMobileSearchBarOpened] = useState(false)
+  const contextData = React.useContext(InstaShareContext)
+  const {
+    searchInput,
+    isMenuOpened,
+    isMobileSearchBarOpened,
+    changeSearchInput,
+    changeIsMenuOpened,
+    changeIsMobileSearchBarOpened,
+  } = contextData
+
+  const [searchText, setSearchText] = useState('')
 
   const onClickMenuIcon = () => {
-    setIsMenuPopupOpened(prev => !prev)
-    setIsMobileSearchBarOpened(false)
+    changeIsMenuOpened(!isMenuOpened)
+    changeIsMobileSearchBarOpened(false)
   }
 
   const onClickCloseMenuItens = () => {
-    setIsMenuPopupOpened(false)
+    changeIsMenuOpened(false)
   }
 
   const onClickMobileSearchBtn = () => {
-    setIsMenuPopupOpened(false)
-    setIsMobileSearchBarOpened(true)
+    changeIsMenuOpened(false)
+    changeIsMobileSearchBarOpened(true)
+  }
+
+  const onChangeSearchText = e => {
+    setSearchText(e.target.value)
+  }
+
+  const onClickSearchBtn = () => {
+    changeSearchInput(searchText)
+  }
+
+  const onKeyDownEnter = e => {
+    // console.log(e.key)
+    if (e.key === 'Enter') {
+      changeSearchInput(searchText)
+    }
   }
 
   const renderSearchBar = () => (
@@ -29,8 +54,11 @@ const Header = () => {
         type="search"
         placeholder="Search Caption"
         className="search-input"
+        value={searchText}
+        onChange={onChangeSearchText}
+        onKeyDown={onKeyDownEnter}
       />
-      <button type="button" className="search-btn">
+      <button type="button" className="search-btn" onClick={onClickSearchBtn}>
         <FaSearch className="search-icon" />
       </button>
     </div>
@@ -79,16 +107,22 @@ const Header = () => {
       </li>
     </ul>
   )
+  console.log(isMenuOpened, isMobileSearchBarOpened)
+  const header2Height =
+    isMenuOpened || isMobileSearchBarOpened ? 'header2-Height' : ''
+
   return (
     <nav className="header-container">
       <div className="header-width-card">
         <div className="header-1">
           <div className="header-logo-card">
-            <img
-              src="https://res.cloudinary.com/dcbdcornz/image/upload/v1690720913/instaShare-urls/Standard_Collection_8_instashare-logo_imgvl5.svg"
-              alt="website logo"
-              className="header-logo"
-            />
+            <Link to="/">
+              <img
+                src="https://res.cloudinary.com/dcbdcornz/image/upload/v1690720913/instaShare-urls/Standard_Collection_8_instashare-logo_imgvl5.svg"
+                alt="website logo"
+                className="header-logo"
+              />
+            </Link>
             <h1 className="header-logo-text">Insta Share</h1>
           </div>
           <button
@@ -106,8 +140,8 @@ const Header = () => {
           </ul>
         </div>
 
-        <div className="header-2">
-          {isMenuPopupOpened && renderMobileNavItems()}
+        <div className={`header-2 ${header2Height}`}>
+          {isMenuOpened && renderMobileNavItems()}
           {isMobileSearchBarOpened && (
             <div className="mobile-search-bar">{renderSearchBar()}</div>
           )}

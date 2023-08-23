@@ -6,6 +6,8 @@
 .slick-item {
   /* background-color: red; */
   /* border: 3px solid green; */
+  /* list-style-type: none;
+  padding: 0px; */
 }
 .story-img-card {
   margin: 0px 10px;
@@ -31,7 +33,6 @@
   color: black;
 }
 .stories-loader-container {
-  border: 1px solid;
   width: 90%;
   height: 150px;
   display: flex;
@@ -39,7 +40,7 @@
   align-items: center;
 }
 .stories-Failureview-card {
-  border: 1px solid;
+  /* border: 1px solid; */
   width: 90%;
   min-height: 150px;
   display: flex;
@@ -47,6 +48,6 @@
   justify-content: center;
   align-items: center;
 
-  padding: 20px;
+  /* padding: 0px 0px 30px 0px; */
   text-align: center;
 }
