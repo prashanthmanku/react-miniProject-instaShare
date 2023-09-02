@@ -15,6 +15,7 @@ const Header = () => {
     changeSearchInput,
     changeIsMenuOpened,
     changeIsMobileSearchBarOpened,
+    changeSearchCount,
   } = contextData
 
   const [searchText, setSearchText] = useState('')
@@ -39,12 +40,14 @@ const Header = () => {
 
   const onClickSearchBtn = () => {
     changeSearchInput(searchText)
+    changeSearchCount()
   }
 
   const onKeyDownEnter = e => {
     // console.log(e.key)
     if (e.key === 'Enter') {
       changeSearchInput(searchText)
+      changeSearchCount()
     }
   }
 

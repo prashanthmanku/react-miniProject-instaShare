@@ -15,6 +15,7 @@ const App = () => {
   const [searchInput, setSearchInput] = useState('')
   const [isMenuOpened, setIsMenuOpened] = useState(false)
   const [isMobileSearchBarOpened, setIsMobileSearchBarOpened] = useState(false)
+  const [searchCount, setSearchCount] = useState(0)
 
   const changeSearchInput = value => {
     setSearchInput(value)
@@ -29,15 +30,20 @@ const App = () => {
   }
   console.log(searchInput)
 
+  const changeSearchCount = () => {
+    setSearchCount(prev => prev + 1)
+  }
   return (
     <InstaShareContext.Provider
       value={{
         searchInput,
         isMenuOpened,
         isMobileSearchBarOpened,
+        searchCount,
         changeSearchInput,
         changeIsMenuOpened,
         changeIsMobileSearchBarOpened,
+        changeSearchCount,
       }}
     >
       <Switch>

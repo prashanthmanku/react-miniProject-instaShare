@@ -17,7 +17,7 @@ const apiStatusConstants = {
 
 // Cookies.remove('jwt_token')
 const PostsComponent = () => {
-  const {searchInput} = React.useContext(InstaShareContext)
+  const {searchInput, searchCount} = React.useContext(InstaShareContext)
   const [postsApi, setPostsApi] = useState({
     postsApiStatus: apiStatusConstants.initial,
     postsData: [],
@@ -29,7 +29,7 @@ const PostsComponent = () => {
       ...prev,
       postsApiStatus: apiStatusConstants.inProgress,
     }))
-    const url = 'https://apis.ccbp.in/insta-share/posts'
+    const url = `https://apis.ccbp.in/insta-share/posts?search=${searchInput}`
     console.log(url)
     const options = {
       method: 'GET',
@@ -67,10 +67,10 @@ const PostsComponent = () => {
       })
     }
   }
-
+  console.log(searchCount)
   useEffect(() => {
     getPostsData()
-  }, [])
+  }, [searchInput, searchCount])
 
   const retryFunction = () => {
     getPostsData()
