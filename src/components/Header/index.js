@@ -41,6 +41,7 @@ const Header = () => {
   const onClickSearchBtn = () => {
     changeSearchInput(searchText)
     changeSearchCount()
+    changeIsMobileSearchBarOpened(true)
   }
 
   const onKeyDownEnter = e => {
@@ -48,6 +49,7 @@ const Header = () => {
     if (e.key === 'Enter') {
       changeSearchInput(searchText)
       changeSearchCount()
+      changeIsMobileSearchBarOpened(true)
     }
   }
 
