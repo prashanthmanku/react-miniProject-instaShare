@@ -1,9 +1,10 @@
 import Header from '../Header'
+import UserDetails from '../UserDetails'
 
 const MyProfileRoute = () => (
   <div>
     <Header />
-    <p>MyProfileRoute</p>
+    <UserDetails />
   </div>
 )
 export default MyProfileRoute

@@ -1,19 +1,12 @@
-import {useState, useEffect} from 'react'
 import Header from '../Header'
+import UserDetails from '../UserDetails'
 
-const UserProfileRoute = () => {
-  const getUserData = () => {
-    console.log('x------')
-  }
+const UserProfileRoute = () => (
+  <div>
+    <Header />
 
-  useEffect(() => {
-    getUserData()
-  })
-  return (
-    <div>
-      <Header />
-      <p>User ProfileRoute</p>
-    </div>
-  )
-}
+    <UserDetails />
+  </div>
+)
+
 export default UserProfileRoute
