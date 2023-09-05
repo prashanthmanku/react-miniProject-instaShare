@@ -1,12 +1,13 @@
 import React, {useState} from 'react'
-import {Link} from 'react-router-dom'
+import Cookies from 'js-cookie'
+import {Link, withRouter} from 'react-router-dom'
 import {GrMenu} from 'react-icons/gr'
 import {FaSearch} from 'react-icons/fa'
 import {IoMdCloseCircle} from 'react-icons/io'
 import InstaShareContext from '../../context/index'
 import './index.css'
 
-const Header = () => {
+const Header = props => {
   const contextData = React.useContext(InstaShareContext)
   const {
     searchInput,
@@ -53,6 +54,12 @@ const Header = () => {
     }
   }
 
+  const onClickLogout = () => {
+    const {history} = props
+    Cookies.remove('jwt_token')
+    history.replace('/login')
+  }
+
   const renderSearchBar = () => (
     <div className="search-card">
       <input
@@ -63,7 +70,12 @@ const Header = () => {
         onChange={onChangeSearchText}
         onKeyDown={onKeyDownEnter}
       />
-      <button type="button" className="search-btn" onClick={onClickSearchBtn}>
+      <button
+        type="button"
+        className="search-btn"
+        onClick={onClickSearchBtn}
+        // testid="searchIcon"
+      >
         <FaSearch className="search-icon" />
       </button>
     </div>
@@ -82,7 +94,7 @@ const Header = () => {
   )
 
   const renderLogoutBtn = () => (
-    <button type="button" className="logout-btn">
+    <button type="button" className="logout-btn" onClick={onClickLogout}>
       Logout
     </button>
   )
@@ -155,4 +167,4 @@ const Header = () => {
     </nav>
   )
 }
-export default Header
+export default withRouter(Header)

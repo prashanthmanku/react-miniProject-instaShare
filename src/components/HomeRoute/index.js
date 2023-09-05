@@ -10,10 +10,13 @@ import PostsComponent from '../PostsComponent'
 import InstaShareContext from '../../context/index'
 
 const HomeRoute = () => {
-  const {isMobileSearchBarOpened, searchCount} = React.useContext(
+  const {isMobileSearchBarOpened, searchCount, SearchedList} = React.useContext(
     InstaShareContext,
   )
   console.log(isMobileSearchBarOpened)
+  console.log('-----------------')
+  console.log(SearchedList)
+  console.log(SearchedList.length)
 
   const storiesMobileClassName =
     isMobileSearchBarOpened || searchCount > 0
@@ -75,6 +78,7 @@ const HomeRoute = () => {
         {renderStories()}
         {renderSearchHeading()}
         {renderPosts()}
+
         {renderInitialMobileSearchView()}
       </div>
     </>

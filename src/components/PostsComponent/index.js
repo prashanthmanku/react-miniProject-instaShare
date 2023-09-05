@@ -17,7 +17,12 @@ const apiStatusConstants = {
 
 // Cookies.remove('jwt_token')
 const PostsComponent = () => {
-  const {searchInput, searchCount} = React.useContext(InstaShareContext)
+  const {
+    searchInput,
+    searchCount,
+    changeSearchedList,
+    SearchedList,
+  } = React.useContext(InstaShareContext)
   const [postsApi, setPostsApi] = useState({
     postsApiStatus: apiStatusConstants.initial,
     postsData: [],
@@ -60,6 +65,7 @@ const PostsComponent = () => {
         postsApiStatus: apiStatusConstants.success,
         postsData: formattedData,
       })
+      changeSearchedList(formattedData)
       console.log(response, formattedData)
     } else {
       setPostsApi({
@@ -90,18 +96,36 @@ const PostsComponent = () => {
     </ul>
   )
 
+  const renderNosearchResults = () => (
+    <div className="no-Search-results-View">
+      <img
+        src="https://res.cloudinary.com/dcbdcornz/image/upload/v1693814962/instaShare-urls/Group_no-search_xtnnb5.png"
+        className="no-search-results-img"
+      />
+      <h1 className="no-search-results-heading">Search Not Found</h1>
+      <p className="no-search-results-description">
+        Try different keyword or search again
+      </p>
+    </div>
+  )
+
   const renderFailureView = () => (
     <div className="posts-Failureview-card">
       <HomeFailureView retryFunction={retryFunction} />
     </div>
   )
 
+  const renderPostsView = () =>
+    SearchedList.length === 0 && searchCount !== 0
+      ? renderNosearchResults()
+      : renderPosts()
+
   const renderpostsView = () => {
     switch (postsApi.postsApiStatus) {
       case apiStatusConstants.inProgress:
         return LoadingView()
       case apiStatusConstants.success:
-        return renderPosts()
+        return renderPostsView()
       case apiStatusConstants.failure:
         return renderFailureView()
       default:

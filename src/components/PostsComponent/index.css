@@ -42,3 +42,28 @@
 
   text-align: center;
 }
+.no-Search-results-View {
+  text-align: center;
+  /* border: 1px solid; */
+  margin: auto;
+}
+.no-search-results-img {
+  width: 70%;
+  max-width: 500px;
+}
+.no-search-results-heading {
+  color: #262626;
+  text-align: center;
+  font-family: 'Roboto';
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+}
+.no-search-results-description {
+  color: #989898;
+  text-align: center;
+  font-family: 'Roboto';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+}

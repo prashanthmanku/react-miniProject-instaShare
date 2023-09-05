@@ -1,0 +1,49 @@
+.not-found-route-bg {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.not-found-route-width-card {
+  width: 90%;
+  /* border: 1px solid; */
+  text-align: center;
+}
+.not-found-route-img {
+  width: 60%;
+  max-width: 200px;
+}
+.not-found-route-heading {
+  color: #262626;
+
+  font-family: 'Roboto';
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 32px;
+}
+
+.not-found-route-description {
+  color: #989898;
+  text-align: center;
+  font-family: 'Roboto';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+.not-found-route-button {
+  border-radius: 8px;
+  background: #4094ef;
+  font-family: 'Inter';
+  padding: 12px 24px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: #fff;
+
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+}

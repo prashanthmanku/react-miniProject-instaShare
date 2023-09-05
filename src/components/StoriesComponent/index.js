@@ -116,7 +116,7 @@ const StoriesComponent = () => {
             <div className="slick-item" key={userId}>
               <div className="story-img-card">
                 <img src={storyUrl} alt="story" className="story-img" />
-                <p className="story-user-name">{name}</p>
+                <p className="story-user-name">{userName}</p>
               </div>
             </div>
           )
