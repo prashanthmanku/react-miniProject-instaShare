@@ -79,11 +79,15 @@ const UserDetails = props => {
     getUserData()
   }, [0])
 
+  const onClickRetry = () => {
+    getUserData()
+  }
+
   const {userData} = apiDetails
   const {
     followersCount,
     followingCount,
-    id,
+    // id,
     posts,
     postsCount,
     profilePic,
@@ -114,7 +118,7 @@ const UserDetails = props => {
 
   const renderposts = () => (
     <ul className="user-details-posts-list">
-      {posts2.map(each => (
+      {posts.map(each => (
         <li className="user-details-post-item">
           <img
             src={each.image}
@@ -194,7 +198,26 @@ const UserDetails = props => {
     </div>
   )
 
-  const renderFailureView = () => {}
+  const renderFailureView = () => (
+    <div className="user-details-failure-view">
+      <img
+        src="https://res.cloudinary.com/dcbdcornz/image/upload/v1694151297/instaShare-urls/Group_7522_swimg_tbfbik.png"
+        alt="failure view"
+        className="user-details-failureview-img"
+      />
+
+      <p className="user-details-failureview-text">
+        Something went wrong. Please try again
+      </p>
+      <button
+        className="user-details-retry-btn"
+        type="button"
+        onClick={onClickRetry}
+      >
+        Try again
+      </button>
+    </div>
+  )
 
   const renderUserDetailsView = () => {
     switch (apiDetails.apiStatus) {

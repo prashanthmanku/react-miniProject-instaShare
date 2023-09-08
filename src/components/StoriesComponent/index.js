@@ -66,6 +66,7 @@ const StoriesComponent = () => {
     // infinite: false,
     slidesToShow: 8,
     slidesToScroll: 1,
+    slide: 'ul',
     responsive: [
       {
         breakpoint: 1200,
@@ -106,23 +107,23 @@ const StoriesComponent = () => {
     ],
   }
   const renderStories = () => (
-    <div className="stories-slides-container">
+    <ul className="stories-slides-container">
       <Slider {...settings}>
         {storiesApi.storiesData.map(each => {
           const {storyUrl, userId, userName} = each
 
           const name = userName.length > 6 ? userName.slice(0, 9) : userName
           return (
-            <div className="slick-item" key={userId}>
+            <li className="slick-item" key={userId}>
               <div className="story-img-card">
-                <img src={storyUrl} alt="story" className="story-img" />
+                <img src={storyUrl} alt="user story" className="story-img" />
                 <p className="story-user-name">{userName}</p>
               </div>
-            </div>
+            </li>
           )
         })}
       </Slider>
-    </div>
+    </ul>
   )
 
   const renderLoader = () => (

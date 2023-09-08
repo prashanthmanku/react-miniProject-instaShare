@@ -1,6 +1,6 @@
 import React from 'react'
 import {FiSearch} from 'react-icons/fi'
-import {AiOutlinePlus} from 'react-icons/ai'
+// import {AiOutlinePlus} from 'react-icons/ai'
 import {FaPlus} from 'react-icons/fa'
 
 import Header from '../Header'

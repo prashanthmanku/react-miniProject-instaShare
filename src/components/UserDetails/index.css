@@ -327,3 +327,41 @@
     line-height: 48px;
   }
 }
+
+.user-details-failure-view {
+  width: 90%;
+  min-height: 90vh;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.user-details-failureview-img {
+  width: 70%;
+  max-width: 300px;
+}
+.user-details-failureview-text {
+  color: #262626;
+  font-family: 'Roboto';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+.user-details-retry-btn {
+  color: #fff;
+  background-color: #4094ef;
+  padding: 8px 16px;
+  border-radius: 5px;
+
+  font-family: 'Inter';
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px; /* 133.333% */
+  border: none;
+  outline: none;
+  cursor: pointer;
+}

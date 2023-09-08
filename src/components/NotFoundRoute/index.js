@@ -1,4 +1,3 @@
-import Header from '../Header'
 import './index.css'
 
 const NotFoundRoute = props => {

@@ -10,7 +10,6 @@ import './index.css'
 const Header = props => {
   const contextData = React.useContext(InstaShareContext)
   const {
-    searchInput,
     isMenuOpened,
     isMobileSearchBarOpened,
     changeSearchInput,
