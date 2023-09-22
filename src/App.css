@@ -10,3 +10,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.dark-theme {
+  background-color: #0f0f0f;
+  /* min-height: 100vh; */
+}
+.light-theme {
+  background-color: #f9f9f9;
+  /* min-height: 100vh; */
+  /* border: 10px solid green; */
+}

@@ -1,5 +1,5 @@
 .loader-container {
-  min-height: 90vh;
+  /* min-height: 90vh; */
   /* border: 1px solid; */
   display: flex;
   justify-content: center;
@@ -9,6 +9,7 @@
   padding: 30px 0px;
   /* border: 3px solid; */
 }
+
 .user-details-width-card {
   max-width: 1110px;
   margin: auto;
@@ -330,13 +331,14 @@
 
 .user-details-failure-view {
   width: 90%;
-  min-height: 90vh;
-  margin: auto;
+
+  /* margin: auto; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
+  /* border: 1px solid; */
 }
 .user-details-failureview-img {
   width: 70%;
@@ -364,4 +366,10 @@
   border: none;
   outline: none;
   cursor: pointer;
+}
+.light-color {
+  color: #262626;
+}
+.dark-color {
+  color: #fff;
 }

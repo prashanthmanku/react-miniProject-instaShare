@@ -67,3 +67,15 @@
   font-style: normal;
   font-weight: 400;
 }
+.posts-dark-theme {
+  background-color: #0f0f0f;
+}
+.posts-light-theme {
+  background-color: ##f9f9f9;
+}
+.light-color {
+  color: #262626;
+}
+.dark-color {
+  color: #fff;
+}

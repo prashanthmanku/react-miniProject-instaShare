@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 import Cookies from 'js-cookie'
 import {Link, withRouter} from 'react-router-dom'
-import {GrMenu} from 'react-icons/gr'
-import {FaSearch} from 'react-icons/fa'
+import {FiMenu, FiSun} from 'react-icons/fi'
+import {FaSearch, FaMoon} from 'react-icons/fa'
 import {IoMdCloseCircle} from 'react-icons/io'
 import InstaShareContext from '../../context/index'
 import './index.css'
@@ -16,7 +16,12 @@ const Header = props => {
     changeIsMenuOpened,
     changeIsMobileSearchBarOpened,
     changeSearchCount,
+    isDarkTheme,
+    changeTheme,
   } = contextData
+
+  const theme = isDarkTheme ? 'header-dark-theme' : 'header-light-theme'
+  const textColor = isDarkTheme ? 'dark-color' : 'light-color'
 
   const [searchText, setSearchText] = useState('')
 
@@ -59,6 +64,10 @@ const Header = props => {
     history.replace('/login')
   }
 
+  const onClickThemBtn = () => {
+    changeTheme()
+  }
+
   const renderSearchBar = () => (
     <div className="search-card">
       <input
@@ -73,7 +82,7 @@ const Header = props => {
         type="button"
         className="search-btn"
         onClick={onClickSearchBtn}
-        // testid="searchIcon"
+        data-testid="searchIcon"
       >
         <FaSearch className="search-icon" />
       </button>
@@ -81,13 +90,13 @@ const Header = props => {
   )
 
   const renderHomeLink = () => (
-    <Link to="/" className="nav-link">
+    <Link to="/" className={`nav-link ${textColor}`}>
       Home
     </Link>
   )
 
   const renderProfileLink = () => (
-    <Link to="/my-profile" className="nav-link">
+    <Link to="/my-profile" className={`nav-link ${textColor}`}>
       Profile
     </Link>
   )
@@ -104,7 +113,7 @@ const Header = props => {
       <li className="nav-item ">
         <button
           type="button"
-          className="mobile-menu-search-btn"
+          className={`mobile-menu-search-btn ${textColor}`}
           onClick={onClickMobileSearchBtn}
         >
           Search
@@ -128,7 +137,7 @@ const Header = props => {
     isMenuOpened || isMobileSearchBarOpened ? 'header2-Height' : ''
 
   return (
-    <nav className="header-container">
+    <nav className={`header-container ${theme}`}>
       <div className="header-width-card">
         <div className="header-1">
           <div className="header-logo-card">
@@ -139,21 +148,36 @@ const Header = props => {
                 className="header-logo"
               />
             </Link>
-            <h1 className="header-logo-text">Insta Share</h1>
+            <h1 className={`header-logo-text ${textColor} `}>Insta Share</h1>
           </div>
-          <button
-            type="button"
-            className="mobile-hambarger-btn"
-            onClick={onClickMenuIcon}
-          >
-            <GrMenu className="menu-icon" />
-          </button>
-          <ul className="desktop-nav-items-card">
-            <li className="nav-item">{renderSearchBar()}</li>
-            <li className="nav-item">{renderHomeLink()}</li>
-            <li className="nav-item">{renderProfileLink()}</li>
-            <li className="nav-item">{renderLogoutBtn()}</li>
-          </ul>
+          <div className="nav-items-bg-card">
+            <div>
+              <button
+                type="button"
+                className="theme-btn"
+                onClick={onClickThemBtn}
+              >
+                {isDarkTheme ? (
+                  <FiSun className={`menu-icon ${textColor}`} />
+                ) : (
+                  <FaMoon className={`menu-icon ${textColor}`} />
+                )}
+              </button>
+              <button
+                type="button"
+                className="mobile-hambarger-btn"
+                onClick={onClickMenuIcon}
+              >
+                <FiMenu className={`menu-icon ${textColor}`} />
+              </button>
+            </div>
+            <ul className="desktop-nav-items-card">
+              <li className="nav-item">{renderSearchBar()}</li>
+              <li className="nav-item">{renderHomeLink()}</li>
+              <li className="nav-item">{renderProfileLink()}</li>
+              <li className="nav-item">{renderLogoutBtn()}</li>
+            </ul>
+          </div>
         </div>
 
         <div className={`header-2 ${header2Height}`}>

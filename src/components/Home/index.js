@@ -10,9 +10,12 @@ import PostsComponent from '../PostsComponent'
 import InstaShareContext from '../../context/index'
 
 const HomeRoute = () => {
-  const {isMobileSearchBarOpened, searchCount, SearchedList} = React.useContext(
-    InstaShareContext,
-  )
+  const {
+    isMobileSearchBarOpened,
+    searchCount,
+    SearchedList,
+    isMenuOpened,
+  } = React.useContext(InstaShareContext)
   console.log(isMobileSearchBarOpened)
   console.log('-----------------')
   console.log(SearchedList)
@@ -62,21 +65,17 @@ const HomeRoute = () => {
     </div>
   )
 
-  const renderSearchHeading = () =>
-    searchCount > 0 && (
-      <div className="search-results-heading-card">
-        <div className="search-results-width-card">
-          <h1 className="search-results-heading">Search Results</h1>
-        </div>
-      </div>
-    )
+  const homTopMargin =
+    isMenuOpened || isMobileSearchBarOpened
+      ? 'home-bg-card-margin2'
+      : 'home-bg-card-margin1'
 
   return (
     <>
       <Header />
-      <div className="home-bg-card">
+      <div className={`home-bg-card ${homTopMargin}`}>
         {renderStories()}
-        {renderSearchHeading()}
+        {/* {renderSearchHeading()} */}
         {renderPosts()}
 
         {renderInitialMobileSearchView()}

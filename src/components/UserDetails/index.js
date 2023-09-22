@@ -1,9 +1,11 @@
-import {useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import {withRouter} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
 import {BsGrid3X3} from 'react-icons/bs'
 import {BiCamera} from 'react-icons/bi'
+
+import InstaShareContext from '../../context/index'
 
 import './index.css'
 
@@ -15,24 +17,25 @@ const apiStatusConstants = {
 }
 
 const UserDetails = props => {
+  const {isDarkTheme} = React.useContext(InstaShareContext)
   const [apiDetails, setApiDetails] = useState({
     apiStatus: apiStatusConstants.initial,
     userData: [],
   })
+  const {match} = props
+  console.log(match)
+  const {path} = match
+  console.log(path)
+  const {params} = match
+  const {id} = params
+  console.log(id, path)
+  console.log('x------')
 
   const getUserData = async () => {
     setApiDetails(prev => ({
       ...prev,
       apiStatus: apiStatusConstants.inProgress,
     }))
-    const {match} = props
-    console.log(match)
-    const {path} = match
-    console.log(path)
-    const {params} = match
-    const {id} = params
-    console.log(id, path)
-    console.log('x------')
     const jwtToken = Cookies.get('jwt_token')
     const url1 = `https://apis.ccbp.in/insta-share/users/${id}`
     const url2 = 'https://apis.ccbp.in/insta-share/my-profile'
@@ -46,8 +49,8 @@ const UserDetails = props => {
     }
     const response = await fetch(url, options)
     const responsedata = await response.json()
-
-    if (response.ok) {
+    console.log(response, 'l')
+    if (response.ok && response.status !== 400) {
       const data =
         path === '/users/:id' ? responsedata.user_details : responsedata.profile
 
@@ -69,6 +72,7 @@ const UserDetails = props => {
         userData: formattedData,
       })
     } else {
+      console.log(response, 'lwwww')
       setApiDetails({
         apiStatus: apiStatusConstants.failure,
       })
@@ -77,126 +81,148 @@ const UserDetails = props => {
 
   useEffect(() => {
     getUserData()
-  }, [0])
+  }, [])
 
   const onClickRetry = () => {
     getUserData()
   }
+  const textColor = isDarkTheme ? 'dark-color' : 'light-color'
+  const profileImgAlt = path === '/users/:id' ? 'user profile' : 'my profile'
+  const storyImgAlt = path === '/users/:id' ? 'user story' : 'my story'
+  const postImgAlt = path === '/users/:id' ? 'user post' : 'my post'
 
   const {userData} = apiDetails
-  const {
-    followersCount,
-    followingCount,
-    // id,
-    posts,
-    postsCount,
-    profilePic,
-    stories,
-    userBio,
-    userId,
-    userName,
-  } = userData
-  //   const list1 = [...stories, ...stories, ...stories]
-  let posts2 = []
-  if (apiDetails.apiStatus === apiStatusConstants.success) {
-    const stories2 = stories.slice().reverse()
-    posts2 = [...posts, ...stories2] // here stories used in posts for presenting  purpose (because in database only 3 posts are available)
-  }
-  //   const list2 = [...posts, ...posts, ...posts, ...posts]
+
   const renderLoadingView = () => (
     <div className="loader-container" data-testid="loader">
       <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
     </div>
   )
 
-  const renderUserBio = () => (
-    <>
-      <p className="profile-user-id">{userId}</p>
-      <p className="profile-bio">{userBio}</p>
-    </>
-  )
+  const renderUserBio = () => {
+    const {userBio, userId} = userData
+    return (
+      <>
+        <p className={`profile-user-id ${textColor}`}>{userId}</p>
+        <p className={`profile-bio ${textColor}`}>{userBio}</p>
+      </>
+    )
+  }
 
-  const renderposts = () => (
-    <ul className="user-details-posts-list">
-      {posts.map(each => (
-        <li className="user-details-post-item">
-          <img
-            src={each.image}
-            alt="my post"
-            className="user-details-post-img"
-          />
-        </li>
-      ))}
-    </ul>
-  )
+  const renderposts = () => {
+    const {posts, stories} = userData
+    const posts2 = [...posts, ...stories] // here stories used in posts for presenting  purpose (because in database only 3 posts are available)
+    return (
+      <ul className="user-details-posts-list">
+        {posts2.map(each => (
+          <li className="user-details-post-item" key={each.id}>
+            <img
+              src={each.image}
+              alt={postImgAlt}
+              className="user-details-post-img"
+            />
+          </li>
+        ))}
+      </ul>
+    )
+  }
 
   const renderNoposts = () => (
     <div className="no-posts-view-card">
       <div className="camera-icon-card">
-        <BiCamera className="no-posts-camera-icon" />
+        <BiCamera className={`no-posts-camera-icon ${textColor}`} />
       </div>
-      <p className="no-posts-Text">No Posts Yet</p>
+      <h1 className={`no-posts-Text ${textColor}`}>No Posts</h1>
     </div>
   )
 
-  const renderSuccessView = () => (
-    <div className="user-details-bg-card">
-      <div className="user-details-width-card">
-        <div className="user-details-profile-card">
-          <p className="user-frofile-name user-frofile-name-small">
-            {userName}
-          </p>
-          <div className="user-profile-pic-Card">
-            <img
-              src={profilePic}
-              alt="user profile"
-              className="user-profile-pic"
-            />
-            <div className="bio-counts-card">
-              <p className="user-frofile-name user-frofile-name-lg">
-                {userName}
-              </p>
-              <div className="counts-card">
-                <div className="count-card">
-                  <p className="user-profile-count">{postsCount}</p>
-                  <p className="user-profile-count-name">posts</p>
+  const renderSuccessView = () => {
+    const {
+      followersCount,
+      followingCount,
+      // id,
+      posts,
+      postsCount,
+      profilePic,
+      stories,
+
+      userName,
+    } = userData
+    return (
+      <div className="user-details-bg-card">
+        <div className="user-details-width-card">
+          <div className="user-details-profile-card">
+            <h1
+              className={`user-frofile-name user-frofile-name-small ${textColor}`}
+            >
+              {userName}
+            </h1>
+            <div className="user-profile-pic-Card">
+              <img
+                src={profilePic}
+                alt={profileImgAlt}
+                className="user-profile-pic"
+              />
+              <div className="bio-counts-card">
+                <p
+                  className={`user-frofile-name user-frofile-name-lg ${textColor}`}
+                >
+                  {userName}
+                </p>
+                <div className="counts-card">
+                  <div className="count-card">
+                    <p className={`user-profile-count ${textColor}`}>
+                      {postsCount}
+                    </p>
+                    <p className={`user-profile-count-name ${textColor}`}>
+                      posts
+                    </p>
+                  </div>
+                  <div className="count-card">
+                    <p className={`user-profile-count ${textColor}`}>
+                      {followersCount}
+                    </p>
+                    <p className={`user-profile-count-name ${textColor}`}>
+                      followers
+                    </p>
+                  </div>
+                  <div className="count-card">
+                    <p className={`user-profile-count ${textColor}`}>
+                      {followingCount}
+                    </p>
+                    <p className={`user-profile-count-name ${textColor}`}>
+                      following
+                    </p>
+                  </div>
                 </div>
-                <div className="count-card">
-                  <p className="user-profile-count">{followersCount}</p>
-                  <p className="user-profile-count-name">followers</p>
-                </div>
-                <div className="count-card">
-                  <p className="user-profile-count">{followingCount}</p>
-                  <p className="user-profile-count-name">following</p>
-                </div>
+                <div className="bio-lg">{renderUserBio()}</div>
               </div>
-              <div className="bio-lg">{renderUserBio()}</div>
             </div>
+            <div className="bio-smaall">{renderUserBio()}</div>
           </div>
-          <div className="bio-smaall">{renderUserBio()}</div>
+          {stories.length > 0 ? (
+            <ul className="stories-list-card">
+              {stories.map(each => (
+                <li className="storie-item" key={each.id}>
+                  <img
+                    src={each.image}
+                    alt={storyImgAlt}
+                    className="storie-img"
+                  />
+                </li>
+              ))}
+            </ul>
+          ) : null}
+          <hr className="user-details-hr" />
+          <div className="user-posts-heading-card">
+            <BsGrid3X3 className={`posts-icon ${textColor}`} />
+            <h1 className={`user-posts-heading ${textColor}`}>Posts</h1>
+          </div>
+          {posts.length > 0 ? renderposts() : renderNoposts()}
         </div>
-        {stories.length > 0 ? (
-          <ul className="stories-list-card">
-            {stories.map(each => (
-              <li className="storie-item" key={each.id}>
-                <img
-                  src={each.image}
-                  alt="user profile"
-                  className="storie-img"
-                />
-              </li>
-            ))}
-          </ul>
-        ) : null}
-        <hr className="user-details-hr" />
-        <div className="user-posts-heading-card">
-          <BsGrid3X3 className="posts-icon" />
-          <h1 className="user-posts-heading">Posts</h1>
-        </div>
-        {posts.length > 0 ? renderposts() : renderNoposts()}
       </div>
-    </div>
-  )
+    )
+  }
 
   const renderFailureView = () => (
     <div className="user-details-failure-view">
@@ -206,7 +232,7 @@ const UserDetails = props => {
         className="user-details-failureview-img"
       />
 
-      <p className="user-details-failureview-text">
+      <p className={`user-details-failureview-text ${textColor}`}>
         Something went wrong. Please try again
       </p>
       <button

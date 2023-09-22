@@ -6,6 +6,9 @@ const InstaShareContext = React.createContext({
   isMobileSearchBarOpened: false,
   searchCount: 0,
   SearchedList: [],
+  isDarkTheme: false,
+
+  changeTheme: () => {},
 
   changeSearchInput: () => {},
   changeIsMenuOpened: () => {},

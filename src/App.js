@@ -17,6 +17,11 @@ const App = () => {
   const [isMobileSearchBarOpened, setIsMobileSearchBarOpened] = useState(false)
   const [searchCount, setSearchCount] = useState(0)
   const [SearchedList, setSearchedList] = useState([])
+  const [isDarkTheme, setTheme] = useState(false)
+
+  const changeTheme = () => {
+    setTheme(prev => !prev)
+  }
 
   const changeSearchInput = value => {
     setSearchInput(value)
@@ -38,10 +43,12 @@ const App = () => {
   const changeSearchedList = value => {
     setSearchedList(value)
   }
+  const theme = isDarkTheme ? 'dark-theme' : 'light-theme'
 
   return (
     <InstaShareContext.Provider
       value={{
+        isDarkTheme,
         searchInput,
         isMenuOpened,
         isMobileSearchBarOpened,
@@ -52,16 +59,23 @@ const App = () => {
         changeIsMobileSearchBarOpened,
         changeSearchCount,
         changeSearchedList,
+        changeTheme,
       }}
     >
-      <Switch>
-        <Route exact path="/login" component={LoginRoute} />
-        <ProtectedRoute exact path="/" component={Home} />
-        <ProtectedRoute exact path="/users/:id" component={UserProfileRoute} />
-        <ProtectedRoute exact path="/my-profile" component={MyProfileRoute} />
-        <Route exact path="/not-found" component={NotFoundRoute} />
-        <Redirect to="/not-found" />
-      </Switch>
+      <div className={theme}>
+        <Switch>
+          <Route exact path="/login" component={LoginRoute} />
+          <ProtectedRoute exact path="/" component={Home} />
+          <ProtectedRoute
+            exact
+            path="/users/:id"
+            component={UserProfileRoute}
+          />
+          <ProtectedRoute exact path="/my-profile" component={MyProfileRoute} />
+          <Route exact path="/not-found" component={NotFoundRoute} />
+          <Redirect to="/not-found" />
+        </Switch>
+      </div>
     </InstaShareContext.Provider>
   )
 }

@@ -1,0 +1,23 @@
+@media screen and (max-width: 767px) {
+  .userDetails-route-bg-margin-1 {
+    margin-top: 128px;
+    min-height: calc(100vh - 128px);
+  }
+  .userDetails-route-bg-margin-2 {
+    margin-top: 64px;
+    min-height: calc(100vh - 64px);
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .userDetails-route-bg {
+    margin-top: 64px;
+    min-height: calc(100vh - 64px);
+  }
+}
+.userDetails-route-bg {
+  /* border: 10px solid red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

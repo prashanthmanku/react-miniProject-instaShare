@@ -4,6 +4,7 @@
   /* margin-bottom: 20px; */
   padding-bottom: 10px;
 }
+
 @media screen and (min-width: 500px) {
   .post-item-card {
     border-radius: 4px;
@@ -64,22 +65,11 @@
   border: none;
   cursor: pointer;
 }
-.like-icon {
+.post-item-icon {
   height: 25px;
   width: 25px;
 }
-.unlike-icon {
-  height: 25px;
-  width: 25px;
-}
-.comment-icon {
-  height: 25px;
-  width: 25px;
-}
-.share-icon {
-  height: 25px;
-  width: 25px;
-}
+
 .post-likes-count {
   color: #262626;
   font-family: 'Roboto';
@@ -102,7 +92,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: 16px;
-  margin: 0px 0px 3px 0px;
+  margin: 2px 0px 3px 0px;
 }
 @media screen and (min-width: 768px) {
   .post-caption {
@@ -121,7 +111,12 @@
   font-style: normal;
   font-weight: 400;
   line-height: 16px;
-  margin: 0px 0px 3px 0px;
+  margin: 2px 0px 5px 0px;
+  display: flex;
+  align-items: center;
+}
+.post-comment-text {
+  margin: 0px;
 }
 @media screen and (min-width: 768px) {
   .post-comment {
@@ -156,4 +151,16 @@
     font-size: 12px;
     line-height: 18px;
   }
+}
+.light-color {
+  color: #262626;
+}
+.dark-color {
+  color: #fff;
+}
+.post-item-dark-theme {
+  background-color: #0f0f0f;
+}
+.post-item-light-theme {
+  background-color: #f9f9f9;
 }

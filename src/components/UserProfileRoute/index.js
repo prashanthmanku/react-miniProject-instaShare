@@ -1,12 +1,26 @@
+import React from 'react'
 import Header from '../Header'
 import UserDetails from '../UserDetails'
+import './index.css'
 
-const UserProfileRoute = () => (
-  <div>
-    <Header />
+import InstaShareContext from '../../context/index'
 
-    <UserDetails />
-  </div>
-)
+const UserProfileRoute = () => {
+  const {isMenuOpened, isMobileSearchBarOpened} = React.useContext(
+    InstaShareContext,
+  )
+  const marginTop =
+    isMenuOpened || isMobileSearchBarOpened
+      ? 'userDetails-route-bg-margin-1'
+      : 'userDetails-route-bg-margin-2'
+  return (
+    <div>
+      <Header />
+      <div className={`userDetails-route-bg ${marginTop}`}>
+        <UserDetails />
+      </div>
+    </div>
+  )
+}
 
 export default UserProfileRoute

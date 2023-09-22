@@ -22,6 +22,7 @@ const PostsComponent = () => {
     searchCount,
     changeSearchedList,
     SearchedList,
+    isDarkTheme,
   } = React.useContext(InstaShareContext)
   const [postsApi, setPostsApi] = useState({
     postsApiStatus: apiStatusConstants.initial,
@@ -34,7 +35,9 @@ const PostsComponent = () => {
       ...prev,
       postsApiStatus: apiStatusConstants.inProgress,
     }))
-    const url = `https://apis.ccbp.in/insta-share/posts?search=${searchInput}`
+    const url1 = 'https://apis.ccbp.in/insta-share/posts'
+    const url2 = `https://apis.ccbp.in/insta-share/posts?search=${searchInput}`
+    const url = searchCount > 0 ? url2 : url1
     console.log(url)
     const options = {
       method: 'GET',
@@ -81,19 +84,35 @@ const PostsComponent = () => {
   const retryFunction = () => {
     getPostsData()
   }
+  const theme = isDarkTheme ? 'posts-dark-theme' : 'posts-light-theme'
+  const textColor = isDarkTheme ? 'dark-color' : 'light-color'
 
   const LoadingView = () => (
-    <div className="posts-loader-container" data-testid="loader">
+    <div className={`posts-loader-container ${theme}`} data-testid="loader">
       <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
     </div>
   )
 
+  const renderSearchHeading = () =>
+    searchCount > 0 && (
+      <div className="search-results-heading-card">
+        <div className="search-results-width-card">
+          <h1 className={`search-results-heading ${textColor}`}>
+            Search Results
+          </h1>
+        </div>
+      </div>
+    )
+
   const renderPosts = () => (
-    <ul className="posts-list-card">
-      {postsApi.postsData.map(each => (
-        <PostItem key={each.postId} postDetails={each} />
-      ))}
-    </ul>
+    <>
+      {renderSearchHeading()}
+      <ul className="posts-list-card">
+        {postsApi.postsData.map(each => (
+          <PostItem key={each.postId} postDetails={each} />
+        ))}
+      </ul>
+    </>
   )
 
   const renderNosearchResults = () => (
@@ -101,6 +120,7 @@ const PostsComponent = () => {
       <img
         src="https://res.cloudinary.com/dcbdcornz/image/upload/v1693814962/instaShare-urls/Group_no-search_xtnnb5.png"
         className="no-search-results-img"
+        alt="search not found"
       />
       <h1 className="no-search-results-heading">Search Not Found</h1>
       <p className="no-search-results-description">
@@ -110,7 +130,7 @@ const PostsComponent = () => {
   )
 
   const renderFailureView = () => (
-    <div className="posts-Failureview-card">
+    <div className={`posts-Failureview-card ${theme}`}>
       <HomeFailureView retryFunction={retryFunction} />
     </div>
   )

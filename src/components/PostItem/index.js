@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
 import Cookies from 'js-cookie'
 // import {formatDistanceToNow} from 'date-fns'
@@ -9,10 +9,14 @@ import {BiShareAlt} from 'react-icons/bi'
 
 import {FaRegComment} from 'react-icons/fa'
 
+import InstaShareContext from '../../context/index'
+
 import './index.css'
 
 const PostItem = props => {
   const [isLiked, setIsliked] = useState(false)
+
+  const {isDarkTheme} = React.useContext(InstaShareContext)
 
   const {postDetails} = props
 
@@ -44,7 +48,7 @@ const PostItem = props => {
     }
     const response = await fetch(url, options)
     const data = await response.json()
-    // console.log(data)
+    console.log(data)
   }
 
   const onToggleLike = () => {
@@ -52,8 +56,11 @@ const PostItem = props => {
     postLikeApi()
   }
 
+  const theme = isDarkTheme ? 'post-item-dark-theme' : 'post-item-light-theme'
+  const textColor = isDarkTheme ? 'dark-color' : 'light-color'
+
   return (
-    <li className="post-item-card" key={postId}>
+    <li className={`post-item-card ${theme}`} key={postId}>
       <div className="post-item-userName-card">
         <img
           src={profilePic}
@@ -61,7 +68,7 @@ const PostItem = props => {
           className="post-item-profile-img"
         />
         <Link to={`/users/${userId}`} className="post-item-user-nav-link">
-          <p className="post-item-userName">{userName}</p>
+          <p className={`post-item-userName ${textColor}`}>{userName}</p>
         </Link>
       </div>
       <img src={postImgUrl} alt="post" className="post-item-post-img" />
@@ -69,32 +76,45 @@ const PostItem = props => {
         <div className="post-item-icons-card">
           <button
             type="button"
-            className="post-item-icon-button"
-            data-testid={isLiked ? 'likeIcon' : 'unLikeIcon'}
+            className={`post-item-icon-button ${textColor}`}
+            data-testid={!isLiked ? 'likeIcon' : 'unLikeIcon'}
             onClick={onToggleLike}
           >
             {isLiked ? (
-              <FcLike className="like-icon" />
+              <FcLike className="post-item-icon" />
             ) : (
-              <BsHeart className="unlike-icon" />
+              <BsHeart className="post-item-icon" />
             )}
           </button>
-          <button type="button" className="post-item-icon-button">
-            <FaRegComment className="comment-icon" />
+          <button
+            type="button"
+            className={`post-item-icon-button ${textColor}`}
+          >
+            <FaRegComment className="post-item-icon" />
           </button>
-          <button type="button" className="post-item-icon-button">
-            <BiShareAlt className="share-icon" />
+          <button
+            type="button"
+            className={`post-item-icon-button ${textColor}`}
+          >
+            <BiShareAlt className="post-item-icon" />
           </button>
         </div>
-        <p className="post-likes-count">
+        <p className={`post-likes-count  ${textColor}`}>
           {isLiked ? likesCount + 1 : likesCount} Likes
         </p>
-        <p className="post-caption">{postCaption}</p>
+        <p className={`post-caption  ${textColor}`}>{postCaption}</p>
         <ul className="comments-list">
           {comments.map(each => (
             <li key={each.userId} className="post-comment">
-              <span className="commented-userName">{each.userName}</span>
-              {each.comment}
+              <Link
+                to={`/users/${each.userId}`}
+                className="post-item-user-nav-link"
+              >
+                <span className={`commented-userName ${textColor}`}>
+                  {each.userName}
+                </span>
+              </Link>
+              <p className={`post-comment-text ${textColor}`}>{each.comment}</p>
             </li>
           ))}
         </ul>

@@ -1,10 +1,12 @@
-import {useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import Slider from 'react-slick'
 import Loader from 'react-loader-spinner'
 
 import Cookies from 'js-cookie'
 
 import HomeFailureView from '../HomeFailureView'
+
+import InstaShareContext from '../../context/index'
 
 import './index.css'
 
@@ -16,6 +18,8 @@ const apiStatusConstants = {
 }
 
 const StoriesComponent = () => {
+  const {isDarkTheme} = React.useContext(InstaShareContext)
+
   const [storiesApi, setStoriesApi] = useState({
     storiesApiStatus: apiStatusConstants.initial,
     storiesData: [],
@@ -61,11 +65,15 @@ const StoriesComponent = () => {
     getStoriesData()
   }
 
+  const themeClass = isDarkTheme ? 'stories-dark-theme' : ''
+  const textColor = isDarkTheme ? 'dark-color' : 'light-color'
+
   const settings = {
     dots: false,
-    // infinite: false,
+    infinite: false,
     slidesToShow: 8,
     slidesToScroll: 1,
+    className: themeClass,
     slide: 'ul',
     responsive: [
       {
@@ -111,13 +119,14 @@ const StoriesComponent = () => {
       <Slider {...settings}>
         {storiesApi.storiesData.map(each => {
           const {storyUrl, userId, userName} = each
+          const printName = userName.slice(0, 9)
 
-          const name = userName.length > 6 ? userName.slice(0, 9) : userName
+          const name = userName.length > 6 ? `${printName}...` : userName
           return (
             <li className="slick-item" key={userId}>
               <div className="story-img-card">
                 <img src={storyUrl} alt="user story" className="story-img" />
-                <p className="story-user-name">{userName}</p>
+                <p className={`story-user-name ${textColor}`}>{name}</p>
               </div>
             </li>
           )
