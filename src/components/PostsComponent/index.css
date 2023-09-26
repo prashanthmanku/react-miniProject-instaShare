@@ -1,7 +1,7 @@
 .posts-list-card {
   list-style-type: none;
   padding: 0px;
-  /* border: 1px solid green; */
+  /* border: 10px solid green; */
   /* width: 100%; */
   /* max-width: 700px; */
   width: 100%;
@@ -21,7 +21,10 @@
   .posts-loader-container {
     border-radius: 4px 4px 0px 0px;
     border: 1px solid #dbdbdb;
+    border-bottom: none;
     background: #fff;
+    flex: 1;
+    max-width: 500px;
   }
   .posts-Failureview-card {
     border-radius: 4px 4px 0px 0px;
@@ -71,7 +74,7 @@
   background-color: #0f0f0f;
 }
 .posts-light-theme {
-  background-color: ##f9f9f9;
+  background-color: #f9f9f9;
 }
 .light-color {
   color: #262626;

@@ -204,6 +204,7 @@
   height: 35px;
   border: 1px solid #dbdbdb;
   border-left: none;
+  cursor: pointer;
 }
 .search-icon {
   width: 15px;

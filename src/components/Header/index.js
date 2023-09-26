@@ -16,8 +16,10 @@ const Header = props => {
     changeIsMenuOpened,
     changeIsMobileSearchBarOpened,
     changeSearchCount,
+    searchCount,
     isDarkTheme,
     changeTheme,
+    changeCount,
   } = contextData
 
   const theme = isDarkTheme ? 'header-dark-theme' : 'header-light-theme'
@@ -44,17 +46,21 @@ const Header = props => {
   }
 
   const onClickSearchBtn = () => {
-    changeSearchInput(searchText)
-    changeSearchCount()
-    changeIsMobileSearchBarOpened(true)
+    if (searchText.length > 0) {
+      changeSearchInput(searchText)
+      changeIsMobileSearchBarOpened(true)
+      changeSearchCount(searchCount + 1)
+    }
   }
 
   const onKeyDownEnter = e => {
     // console.log(e.key)
     if (e.key === 'Enter') {
-      changeSearchInput(searchText)
-      changeSearchCount()
-      changeIsMobileSearchBarOpened(true)
+      if (searchText.length > 0) {
+        changeSearchInput(searchText)
+        changeIsMobileSearchBarOpened(true)
+        changeSearchCount(searchCount + 1)
+      }
     }
   }
 
@@ -66,6 +72,18 @@ const Header = props => {
 
   const onClickThemBtn = () => {
     changeTheme()
+  }
+
+  const onClickLogo = () => {
+    changeCount()
+    changeIsMobileSearchBarOpened(false)
+    // changeIsMenuOpened(false)
+    changeSearchInput('')
+    changeSearchCount(0)
+  }
+
+  const onClickProfile = () => {
+    changeCount()
   }
 
   const renderSearchBar = () => (
@@ -90,13 +108,17 @@ const Header = props => {
   )
 
   const renderHomeLink = () => (
-    <Link to="/" className={`nav-link ${textColor}`}>
+    <Link to="/" className={`nav-link ${textColor}`} onClick={onClickLogo}>
       Home
     </Link>
   )
 
   const renderProfileLink = () => (
-    <Link to="/my-profile" className={`nav-link ${textColor}`}>
+    <Link
+      to="/my-profile"
+      className={`nav-link ${textColor}`}
+      onClick={onClickProfile}
+    >
       Profile
     </Link>
   )
@@ -127,7 +149,9 @@ const Header = props => {
           className="mobile-menu-items-close-btn"
           onClick={onClickCloseMenuItens}
         >
-          <IoMdCloseCircle className="mobile-menu-items-close-icon" />
+          <IoMdCloseCircle
+            className={`mobile-menu-items-close-icon ${textColor}`}
+          />
         </button>
       </li>
     </ul>
@@ -146,6 +170,7 @@ const Header = props => {
                 src="https://res.cloudinary.com/dcbdcornz/image/upload/v1690720913/instaShare-urls/Standard_Collection_8_instashare-logo_imgvl5.svg"
                 alt="website logo"
                 className="header-logo"
+                onClick={onClickLogo}
               />
             </Link>
             <h1 className={`header-logo-text ${textColor} `}>Insta Share</h1>

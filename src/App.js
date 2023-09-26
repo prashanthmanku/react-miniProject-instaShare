@@ -18,6 +18,7 @@ const App = () => {
   const [searchCount, setSearchCount] = useState(0)
   const [SearchedList, setSearchedList] = useState([])
   const [isDarkTheme, setTheme] = useState(false)
+  const [count, setCount] = useState(0)
 
   const changeTheme = () => {
     setTheme(prev => !prev)
@@ -36,13 +37,18 @@ const App = () => {
   }
   console.log(searchInput)
 
-  const changeSearchCount = () => {
-    setSearchCount(prev => prev + 1)
+  const changeSearchCount = value => {
+    setSearchCount(value)
   }
 
   const changeSearchedList = value => {
     setSearchedList(value)
   }
+
+  const changeCount = () => {
+    setCount(prev => prev + 1)
+  }
+
   const theme = isDarkTheme ? 'dark-theme' : 'light-theme'
 
   return (
@@ -54,24 +60,31 @@ const App = () => {
         isMobileSearchBarOpened,
         searchCount,
         SearchedList,
+        count,
         changeSearchInput,
         changeIsMenuOpened,
         changeIsMobileSearchBarOpened,
         changeSearchCount,
         changeSearchedList,
         changeTheme,
+        changeCount,
       }}
     >
       <div className={theme}>
         <Switch>
           <Route exact path="/login" component={LoginRoute} />
-          <ProtectedRoute exact path="/" component={Home} />
+          <ProtectedRoute exact path="/" component={Home} key={count} />
           <ProtectedRoute
             exact
             path="/users/:id"
             component={UserProfileRoute}
           />
-          <ProtectedRoute exact path="/my-profile" component={MyProfileRoute} />
+          <ProtectedRoute
+            exact
+            path="/my-profile"
+            component={MyProfileRoute}
+            key={count}
+          />
           <Route exact path="/not-found" component={NotFoundRoute} />
           <Redirect to="/not-found" />
         </Switch>

@@ -8,9 +8,16 @@
 @media screen and (min-width: 500px) {
   .post-item-card {
     border-radius: 4px;
-    border: 1px solid #dbdbdb;
+    /* border: 1px solid #dbdbdb;
+    border: 1px solid #262626; */
     background: #fff;
     margin-bottom: 20px;
+  }
+  .light-post-item-border {
+    border: 1px solid #dbdbdb;
+  }
+  .dark-post-item-border {
+    border: 1px solid #262626;
   }
 }
 .post-item-userName-card {

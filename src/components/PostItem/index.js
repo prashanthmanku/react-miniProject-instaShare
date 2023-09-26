@@ -58,9 +58,12 @@ const PostItem = props => {
 
   const theme = isDarkTheme ? 'post-item-dark-theme' : 'post-item-light-theme'
   const textColor = isDarkTheme ? 'dark-color' : 'light-color'
+  const postBorder = isDarkTheme
+    ? 'dark-post-item-border'
+    : 'light-post-item-border'
 
   return (
-    <li className={`post-item-card ${theme}`} key={postId}>
+    <li className={`post-item-card ${theme} ${postBorder}`} key={postId}>
       <div className="post-item-userName-card">
         <img
           src={profilePic}
