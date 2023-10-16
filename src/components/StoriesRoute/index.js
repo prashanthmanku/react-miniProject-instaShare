@@ -28,6 +28,10 @@ const StoriesRoute = props => {
   const [userProfilePic, setUserProfilePic] = useState('')
 
   const history = useHistory()
+  useEffect(() => {
+    history.replace(`/stories/${UserId}/${StoryId}`)
+  }, [StoryId, UserId, history])
+  console.log(userProfilePic)
 
   const settings = {
     dots: false,
