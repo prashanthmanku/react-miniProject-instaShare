@@ -30,10 +30,10 @@ const LoginRoute = props => {
 
   const onSubmitForm = async e => {
     e.preventDefault()
-    const userDetails = {username, password}
-    // if (username === 'prashanth' && password === 'prash@2023') {
-    //   userDetails = {username: 'rahul', password: 'rahul@2021'}
-    // }
+    let userDetails = {username, password}
+    if (username === 'prashanth' && password === 'prash@2023') {
+      userDetails = {username: 'rahul', password: 'rahul@2021'}
+    }
     const url = 'https://apis.ccbp.in/login'
     const options = {
       method: 'POST',

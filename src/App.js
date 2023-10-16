@@ -5,6 +5,7 @@ import Home from './components/Home'
 import UserProfileRoute from './components/UserProfileRoute'
 import MyProfileRoute from './components/MyProfileRoute'
 import NotFoundRoute from './components/NotFoundRoute'
+import StoriesRoute from './components/StoriesRoute'
 
 import ProtectedRoute from './components/ProtectedRoute'
 import InstaShareContext from './context/index'
@@ -19,6 +20,7 @@ const App = () => {
   const [SearchedList, setSearchedList] = useState([])
   const [isDarkTheme, setTheme] = useState(false)
   const [count, setCount] = useState(0)
+  const [storiesList, setStoriesList] = useState([])
 
   const changeTheme = () => {
     setTheme(prev => !prev)
@@ -49,6 +51,10 @@ const App = () => {
     setCount(prev => prev + 1)
   }
 
+  const changeStoriesList = list => {
+    setStoriesList(list)
+  }
+
   const theme = isDarkTheme ? 'dark-theme' : 'light-theme'
 
   return (
@@ -68,6 +74,8 @@ const App = () => {
         changeSearchedList,
         changeTheme,
         changeCount,
+        storiesList,
+        changeStoriesList,
       }}
     >
       <div className={theme}>
@@ -84,6 +92,11 @@ const App = () => {
             path="/my-profile"
             component={MyProfileRoute}
             key={count}
+          />
+          <ProtectedRoute
+            exact
+            path="/stories/:userId/:storyId"
+            component={StoriesRoute}
           />
           <Route exact path="/not-found" component={NotFoundRoute} />
           <Redirect to="/not-found" />
